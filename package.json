@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Dav1dSo/API_School/issues"
   },
-  "homepage": "https://github.com/Dav1dSo/API_School#readme"
+  "homepage": "https://github.com/Dav1dSo/API_School#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
