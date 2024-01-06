@@ -16,7 +16,9 @@
 - User registration
 - Student Registration
 - File upload
-- Data listing## 🛠️ To run the project:
+- Data listing## 
+
+🛠️ To run the project:
 
 
 Clone the project
