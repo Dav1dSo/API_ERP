@@ -30,7 +30,7 @@ module.exports = {
       },
 
       stock: {
-        type: Sequelize.INET,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       
