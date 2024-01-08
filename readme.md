@@ -27,7 +27,7 @@
 
 #### Returns all products
 
-```http
+```bash
   GET /api/produtos/?limit=1000
 ```
 
