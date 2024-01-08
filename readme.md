@@ -1,35 +1,39 @@
 ![Badge in Development](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
-# REST API
+# API_ERP (back-end)
 
-- Student registration API which allows the user to register students from a specific school, which can include sensitive data, grade history and even static files.
+- ERP system that seeks to give the user greater control over their product stock, simplifying data monitoring and facilitating bureaucratic processes through an intuitive interface and easy data reading.
 
-## ✔️ Technologies used:
+## 🛠️ Technologies used:
 
 - ``Javascript ES6``
 - ``Express``
-- ``MYSQL``
+- ``PostgreSQL``
 - ``Sequelize``
 - ``JWToken``
-#### Functionalities
 
+## Functionalities
+
+- Authentication.
 - User registration
-- Student Registration
+- Product Registration
 - File upload
+- Issuing reports
+- Inventory control
 - Data listing
 
-## 🛠️ To run the project:
+## ✔️ To run the project:
 
 Clone the project
 
 ```bash
-  git clone https://github.com/Dav1dSo/API_School.git
+  git clone https://github.com/Dav1dSo/API_ERP.git
 ```
 
 Enter the project directory
 
 ```bash
-  cd API_School
+  cd API_ERP
 ```
 
 Install dependencies
