@@ -22,6 +22,21 @@
 - Inventory control
 - Data listing
 
+
+## API documentation
+
+#### Returns all products
+
+```http
+  GET /api/produtos/?limit=1000
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `limit` | `number` | limit of items (default = 1000) |
+
+
+
 ## ✔️ To run the project:
 
 Clone the project
