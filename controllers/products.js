@@ -21,9 +21,22 @@ const FindProduct = async (req, res) => {
     const product = await Product.findAll({ where: where });
     res.status(200).json(product);
   } catch (error) {
-    console.error('Erro ao buscar os produtos:', error);
     res.status(500).json('Error ao buscar produto!');
   }
-}
+};
 
-export { GetProducts, FindProduct };   
+const GetProductsByCategorie = async (req, res) => {
+  
+  const categorie = req.params.category;
+  const filterCategorie = { category: categorie }
+
+  try {
+    const productsByCategorie = await Product.findAll({ where: filterCategorie });
+    res.status(200).json(productsByCategorie);
+  } catch (error) {
+    res.status(500).json('erro ao filtrar produtor por categoria!');
+  }
+
+};
+
+export { GetProducts, FindProduct, GetProductsByCategorie };   
