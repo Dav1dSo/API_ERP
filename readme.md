@@ -31,11 +31,17 @@
   GET /api/produtos/?limit=1000
 ```
 
-| Parâmetro   | Tipo       | Descrição                           |
+| Parameter   | Type       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
 | `limit` | `number` | limit of items (default = 1000) |
 
+```bash
+  GET /api/produtos/getProduct?codProduct=12345
+```
 
+| Parameter   | Type       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `codProduct` | `number` | **Mandatory**. product code |
 
 ## ✔️ To run the project:
 
