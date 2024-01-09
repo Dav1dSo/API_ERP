@@ -76,7 +76,12 @@ Install dependencies
   npm install
 ```
 
-After configuring the database, start the server
+After configuring the database in .env and config/ config.json run the migrations creating the tables
+
+```bash
+  npx sequelize-cli db:migrate
+```
+Start the server
 
 ```bash
   npm run dev
