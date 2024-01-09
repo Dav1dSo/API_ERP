@@ -35,6 +35,8 @@
 | :---------- | :--------- | :---------------------------------- |
 | `limit` | `number` | limit of items (default = 1000) |
 
+#### Returns product by code
+
 ```bash
   GET /api/produtos/getProduct?codProduct=12345
 ```
@@ -42,6 +44,17 @@
 | Parameter   | Type       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
 | `codProduct` | `number` | **Mandatory**. product code |
+
+#### Returns products by category
+
+```bash
+  GET /api/produtos//getProduct/filter_categorie/:category
+```
+
+| Parameter   | Type       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `category` | `string` | **Mandatory**. product category |
+
 
 ## ✔️ To run the project:
 
