@@ -46,10 +46,25 @@ const CreateProduct = async (req, res) => {
     await Product.create({cod, name, price, description, image, stock, sold, category});
     res.status(201).json('Produto adicionado com sucesso!')
   } catch (error) {
-    console.log(error);
     res.status(500).json('Error ao criar produto.')
+  }
+};
+
+const GetProductsByValue = async (req, res) => {
+  
+  try {
+    const valueInitial = req.query.initialValue;
+    const valueFinal = req.query.finalValue;
+
+    const products = await Product.findAll();
+
+    const productsFilter = products.filter(obj => obj.price >= valueInitial && obj.price <= valueFinal);
+    res.status(200).json(productsFilter);
+
+  } catch (error) {
+    res.status(500).json('Error ao filtrar produtos pelos valores informados.')
   }
 }
 
-export { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct };   
+export { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, GetProductsByValue };   
  
