@@ -26,7 +26,7 @@ const FindProduct = async (req, res) => {
 };
 
 const GetProductsByCategorie = async (req, res) => {
-  
+
   const categorie = req.params.category;
   const filterCategorie = { category: categorie }
 
@@ -36,7 +36,20 @@ const GetProductsByCategorie = async (req, res) => {
   } catch (error) {
     res.status(500).json('erro ao filtrar produtor por categoria!');
   }
-
 };
 
-export { GetProducts, FindProduct, GetProductsByCategorie };   
+const CreateProduct = async (req, res) => {
+  try {
+    const {
+      cod, name, price, description, image, stock, sold, category
+    } = req.body;
+    await Product.create({cod, name, price, description, image, stock, sold, category});
+    res.status(201).json('Produto adicionado com sucesso!')
+  } catch (error) {
+    console.log(error);
+    res.status(500).json('Error ao criar produto.')
+  }
+}
+
+export { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct };   
+ 
