@@ -84,6 +84,17 @@
 | `initialValue` | `integer` | **Mandatory**. Value initial |
 | `finalValue` | `integer` | **Mandatory**. Value final |
 
+#### Creation new user
+
+```bash
+  POST /api/users/createUser
+```
+
+| Parameter   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `userName` | `string` | **Mandatory**. User name |
+| `email`    | `string` | **Mandatory**. Email |
+| `password` | `string` | **Mandatory**. password |
 
 ## ✔️ To run the project:
 
