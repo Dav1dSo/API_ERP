@@ -5,12 +5,13 @@ module.exports = {
     await queryInterface.createTable('Products', {
       id: {
         allowNull: false,
-        primaryKey: true,
         autoIncrement: true,
         type: Sequelize.INTEGER
       },
       cod: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
+        unique: true,
         allowNull: false,
       },
       name: {
@@ -31,7 +32,8 @@ module.exports = {
       },
       stock: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: 0
       },
       sold: {
         type: Sequelize.INTEGER,
