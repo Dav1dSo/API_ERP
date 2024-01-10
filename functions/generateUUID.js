@@ -5,4 +5,4 @@ const generateUUID = () => {
   return uuid;
 };
 
-export default generateUUID;
+export default generateUUID; 
