@@ -31,7 +31,7 @@
   GET /api/produtos/?limit=1000
 ```
 
-| Parameter   | Type       | Descrição                           |
+| Parameter   | Type       | Description                           |
 | :---------- | :--------- | :---------------------------------- |
 | `limit` | `number` | limit of items (default = 1000) |
 
@@ -41,7 +41,7 @@
   GET /api/produtos/getProduct?codProduct=12345
 ```
 
-| Parameter   | Type       | Descrição                           |
+| Parameter   | Type       | Description                           |
 | :---------- | :--------- | :---------------------------------- |
 | `codProduct` | `number` | **Mandatory**. product code |
 
@@ -51,9 +51,26 @@
   GET /api/produtos//getProduct/filter_categorie/:category
 ```
 
-| Parameter   | Type       | Descrição                           |
+| Parameter   | Type       | Description                           |
 | :---------- | :--------- | :---------------------------------- |
 | `category` | `string` | **Mandatory**. product category |
+
+#### Created product
+
+```bash
+  POST /api/produtos/createProduct
+```
+
+| Parameter    | Type      | Description                           |
+| :----------- | :-------- | :---------------------------------- |
+| `cod`        | `integer` | **Mandatory**. Produto code ( primarykey - unique )   |
+| `name`       | `string`  | **Mandatory**. Product name      |
+| `price`      | `floar`   | **Mandatory**. Product price     |
+| `description`| `string`  | **Mandatory**. Product description | 
+| `image`      | `string`  | **Mandatory**. URL image        |
+| `stock`      | `integer` | **Mandatory**. Product stock   |
+| `sold`       | `integer` | Products solds ( default = 0 )             |
+| `category`   | `string`  | **Mandatory**. Product category|
 
 
 ## ✔️ To run the project:
