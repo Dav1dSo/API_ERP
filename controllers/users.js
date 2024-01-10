@@ -8,7 +8,7 @@ const CreateUser = async (req, res) => {
         await Users.create({ idUser, userName, email, password });
         res.status(200).json('Usuário cadastrado com sucesso!');
     } catch (error) {
-        res.status(500).json("Error ao criar novo usuário" + error);
+        res.status(500).json("Error ao criar novo usuário.");
     }
 }
 
