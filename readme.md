@@ -73,6 +73,18 @@
 | `category`   | `string`  | **Mandatory**. Product category|
 
 
+#### Returns products filtreds by price
+
+```bash
+  GET /api/produtos/filterValue?initialValue=100&finalValue=301
+```
+
+| Parameter   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `initialValue` | `integer` | **Mandatory**. Value initial |
+| `finalValue` | `integer` | **Mandatory**. Value final |
+
+
 ## ✔️ To run the project:
 
 Clone the project
