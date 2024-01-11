@@ -31,9 +31,9 @@
   GET /api/produtos/?limit=1000
 ```
 
-| Parameter   | Type       | Description                           |
-| :---------- | :--------- | :---------------------------------- |
-| `limit` | `number` | limit of items (default = 1000) |
+| Parameter | Type     | Description                     |
+| :-------- | :------- | :------------------------------ |
+| `limit`   | `number` | limit of items (default = 1000) |
 
 #### Returns product by code
 
@@ -41,8 +41,8 @@
   GET /api/produtos/getProduct?codProduct=12345
 ```
 
-| Parameter   | Type       | Description                           |
-| :---------- | :--------- | :---------------------------------- |
+| Parameter    | Type     | Description                 |
+| :----------- | :------- | :-------------------------- |
 | `codProduct` | `number` | **Mandatory**. product code |
 
 #### Returns products by category
@@ -51,9 +51,9 @@
   GET /api/produtos//getProduct/filter_categorie/:category
 ```
 
-| Parameter   | Type       | Description                           |
-| :---------- | :--------- | :---------------------------------- |
-| `category` | `string` | **Mandatory**. product category |
+| Parameter   | Type    | Description                  |
+| :---------- | :------ | :--------------------------- |
+| `category`  | `string` | **Mandatory**. product category |
 
 #### Created product
 
@@ -61,16 +61,16 @@
   POST /api/produtos/createProduct
 ```
 
-| Parameter    | Type      | Description                           |
-| :----------- | :-------- | :---------------------------------- |
+| Parameter    | Type      | Description                        |
+| :----------- | :-------- | :--------------------------------- |
 | `cod`        | `integer` | **Mandatory**. Produto code ( primarykey - unique )   |
-| `name`       | `string`  | **Mandatory**. Product name      |
-| `price`      | `floar`   | **Mandatory**. Product price     |
+| `name`       | `string`  | **Mandatory**. Product name        |
+| `price`      | `floar`   | **Mandatory**. Product price       |
 | `description`| `string`  | **Mandatory**. Product description | 
-| `image`      | `string`  | **Mandatory**. URL image        |
-| `stock`      | `integer` | **Mandatory**. Product stock   |
-| `sold`       | `integer` | Products solds ( default = 0 )             |
-| `category`   | `string`  | **Mandatory**. Product category|
+| `image`      | `string`  | **Mandatory**. URL image           |
+| `stock`      | `integer` | **Mandatory**. Product stock       |
+| `sold`       | `integer` | Products solds ( default = 0 )     |
+| `category`   | `string`  | **Mandatory**. Product category    |
 
 
 #### Returns products filtreds by price
@@ -79,10 +79,10 @@
   GET /api/produtos/filterValue?initialValue=100&finalValue=301
 ```
 
-| Parameter   | Type       | Description                           |
-| :---------- | :--------- | :---------------------------------- |
-| `initialValue` | `integer` | **Mandatory**. Value initial |
-| `finalValue` | `integer` | **Mandatory**. Value final |
+| Parameter     | Type      | Description                  |
+| :----------   | :-------- | :--------------------------- |
+| `initialValue`| `integer` | **Mandatory**. Value initial |
+| `finalValue`  | `integer` | **Mandatory**. Value final   |
 
 #### Creation new user
 
@@ -90,11 +90,24 @@
   POST /api/users/createUser
 ```
 
-| Parameter   | Type       | Description                           |
-| :---------- | :--------- | :---------------------------------- |
+| Parameter  | Type     | Description              |
+| :--------- | :------- | :----------------------- | 
 | `userName` | `string` | **Mandatory**. User name |
-| `email`    | `string` | **Mandatory**. Email |
-| `password` | `string` | **Mandatory**. password |
+| `email`    | `string` | **Mandatory**. Email     |
+| `password` | `string` | **Mandatory**. password  |
+
+#### Update user
+
+```bash
+  POST /api/users/updatedUser
+```
+
+| Parameter  | Type       | Description                  |
+| :----------| :--------- | :----------------------------|
+| `idUser`   | `string`   | **Mandatory**. User id       |
+| `userName` | `string`   | **Mandatory**. New user name |
+| `email`    | `string`   | **Mandatory**. New email     |
+| `password` | `string`   | **Mandatory**. New password  |
 
 ## ✔️ To run the project:
 
