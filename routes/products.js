@@ -9,4 +9,4 @@ route.get('/getProduct/filter_categorie/:category', GetProductsByCategorie);
 route.post('/createProduct', CreateProduct);
 route.get('/filterValue', GetProductsByValue);
 
-export default route; 
+export default route;  
