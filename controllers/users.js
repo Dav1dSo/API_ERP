@@ -20,7 +20,7 @@ const UserAuthentication = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await Users.findOne({ where: { email } }); 
-
+                                        
         if (!user) {
             return res.status(401).json('Usuário não encontrado!');
         }
