@@ -32,7 +32,7 @@ const GetProductsByCategorie = async (req, res) => {
   } catch (error) {
     res.status(500).json('Erro ao filtrar produtor por categoria!');
   }
-};
+};          
 
 const CreateProduct = async (req, res) => {
   try {
@@ -72,6 +72,7 @@ const GetProductsByValue = async (req, res) => {
   } catch (error) {
     res.status(500).json('Error ao filtrar produtos pelos valores informados.')
   }
+  
 };
 
 const UpdatedProduct = async (req, res) => {
