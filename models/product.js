@@ -6,12 +6,13 @@ import sequelize from '../db';
 const Product = sequelize.define('Product', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
     autoIncrement: true,
   },
   cod: {
     type: DataTypes.INTEGER,
+    primaryKey: true,
     allowNull: false,
+    unique: true,
   },
   name: {
     type: DataTypes.STRING,
