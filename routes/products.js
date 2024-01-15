@@ -1,13 +1,14 @@
 import express from 'express'
 import { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, GetProductsByValue, UpdatedProduct } from '../controllers/products';
+import VerifyToken from '../middlewares/AuthenticationUser';
 
 const route = express.Router();
 
 route.get('/', GetProducts);
-route.get('/getProduct', FindProduct);
-route.get('/getProduct/filter_categorie/:category', GetProductsByCategorie);
-route.post('/createProduct', CreateProduct);
-route.get('/filterValue', GetProductsByValue);
-route.post('/updatedProduct', UpdatedProduct);
+route.get('/getProduct', VerifyToken, FindProduct);
+route.get('/getProduct/filter_categorie/:category', VerifyToken, GetProductsByCategorie);
+route.post('/createProduct', VerifyToken, CreateProduct);
+route.get('/filterValue', VerifyToken, GetProductsByValue);
+route.post('/updatedProduct', VerifyToken, UpdatedProduct);
 
 export default route;  

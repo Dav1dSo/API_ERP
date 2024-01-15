@@ -3,7 +3,7 @@ import { CreateUser, UpdatedUser, UserAuthentication } from "../controllers/user
 import VerifyToken from "../middlewares/AuthenticationUser";
 const route = express.Router();
 
-route.post('/createUser', CreateUser);
+route.post('/createUser', VerifyToken, CreateUser);
 route.post('/login', UserAuthentication);
 route.post('/updatedUser', VerifyToken, UpdatedUser);
 
