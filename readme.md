@@ -63,7 +63,7 @@
 
 | Parameter    | Type      | Description                        |
 | :----------- | :-------- | :--------------------------------- |
-| `cod`        | `integer` | **Mandatory**. Produto code ( primarykey - unique )   |
+| `codProduct`        | `integer` | **Mandatory**. Produto code ( primarykey - unique )   |
 | `name`       | `string`  | **Mandatory**. Product name        |
 | `price`      | `floar`   | **Mandatory**. Product price       |
 | `description`| `string`  | **Mandatory**. Product description | 
