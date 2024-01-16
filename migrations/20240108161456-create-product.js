@@ -8,13 +8,13 @@ module.exports = {
         autoIncrement: true,
         type: Sequelize.INTEGER
       },
-      cod: {
-        type: Sequelize.INTEGER,
+      codProduct: {
+        type: Sequelize.STRING,
         primaryKey: true,
         unique: true,
         allowNull: false,
-      },
-      name: {
+        },
+        name: {
         type: Sequelize.STRING,
         allowNull: false,
       },

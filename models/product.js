@@ -1,15 +1,14 @@
-// models/Product.js
-
 import { DataTypes } from 'sequelize';
 import sequelize from '../db';
+import ImagesProducts from './ImagesProducts';
 
 const Product = sequelize.define('Product', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
   },
-  cod: {
-    type: DataTypes.INTEGER,
+  codProduct: {
+    type: DataTypes.STRING,
     primaryKey: true,
     allowNull: false,
     unique: true,
@@ -43,5 +42,7 @@ const Product = sequelize.define('Product', {
     allowNull: false,
   }
 });
+
+Product.hasMany(ImagesProducts, { foreignKey: 'codProduct' });
 
 export default Product;
