@@ -19,15 +19,11 @@ module.exports = {
         allowNull: false,
       },
       price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       description: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-      },
-      image: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       stock: {
@@ -40,7 +36,7 @@ module.exports = {
         allowNull: false,
       },
       category: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       createdAt: {
