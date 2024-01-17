@@ -1,21 +1,35 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db";
 
-const ImagesProducs = sequelize.define('ImagesProducs', {
-    id: { 
+const ImagesProducts = sequelize.define('ImagesProducts', {
+    id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-    },
-    codProduct: {
-        type: DataTypes.STRING,
-        primaryKey: true,
         allowNull: false,
-        unique: true
-    },
-    path: {
+        primaryKey: true,
+      },
+      codProduct: {
         type: DataTypes.STRING,
-        allowNull: true,
-    }
+        allowNull: false,
+        references: {
+          model: 'Products',  
+          key: 'codProduct',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      path: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      }
 });
 
-export default ImagesProducs;  
+export default ImagesProducts;  
