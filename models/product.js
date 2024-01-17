@@ -18,15 +18,11 @@ const Product = sequelize.define('Product', {
     allowNull: false,
   },
   price: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   description: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  image: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   stock: {
@@ -38,10 +34,18 @@ const Product = sequelize.define('Product', {
     allowNull: false,
   },
   category: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
+  },
+  createdAt: {
+    allowNull: false,
+    type: DataTypes.DATE
+  },
+  updatedAt: {
+    allowNull: false,
+    type: DataTypes.DATE
   }
-});
+}); 
 
 Product.hasMany(ImagesProducts, { foreignKey: 'codProduct' });
 
