@@ -18,7 +18,7 @@ const Product = sequelize.define('Product', {
     allowNull: false,
   },
   price: {
-    type: DataTypes.STRING,
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
   description: {
