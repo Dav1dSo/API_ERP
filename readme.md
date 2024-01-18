@@ -109,6 +109,20 @@
 | `email`    | `string`   | **Mandatory**. New email     |
 | `password` | `string`   | **Mandatory**. New password  |
 
+
+#### Update product image
+
+```bash
+  POST /api/produtos/UpdatedImageProduct
+```
+
+| Parameter  | Type       | Description                 |
+| :----------| :--------- | :-------------------------- |
+| `images`   | `file`     | **Mandatory**. File image   |
+| `id`       | `integer`  | **Mandatory**. Image id     |
+|`codProduct`| `string`   | **Mandatory**. Product code |
+
+
 ## ✔️ To run the project:
 
 Clone the project
