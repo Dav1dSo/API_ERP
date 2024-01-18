@@ -40,75 +40,102 @@ const CreateProduct = async (req, res) => {
   try {
     const {
       codProduct, name, price, description, stock, sold, category
-    } = req.body; 
+    } = req.body;
 
-    const files = req.files;  
-
+    const files = req.files;
     const fileUrls = files.map((file) => `/images/products/${file.filename}`);
 
     const DataValidated = {
-      codProduct: codProduct, 
+      codProduct: codProduct,
       name: !Validated.name(name) ? res.status(400).json('Nome do produto inválido!') : name,
-      price: !Validated.price(price) ? res.status(400).json('Preço inválido!') : parseFloat(price).toFixed(2),
+      price: !Validated.price(price) ? res.status(400).json('Preço inválido!') : parseFloat(price.replace(',', '.')).toFixed(2),
       description: !Validated.description(description) ? res.status(400).json('Descrição nula ou muito curta!') : description,
       stock: !Validated.stock(stock) ? res.status(400).json('Estoque não pode ser nulo!') : stock,
       sold: !Validated.sold(sold) ? res.status(400).json('Quantidade vendida inválida!') : sold,
       category: !Validated.category(category) ? res.status(400).json('Categoria inválida') : category
     }
- 
+
     const product = await Product.create(DataValidated);
-   
-    const images = await Promise.all(      
-      fileUrls.map(async (fileUrl) => {   
+
+    const images = await Promise.all(
+      fileUrls.map(async (fileUrl) => {
         return await ImagesProducts.create({ codProduct, path: fileUrl });
       })
-    ); 
-    return res.status(200).json({ message: 'Produto criado com sucesso!'});
+    );
+    return res.status(200).json({ message: 'Produto criado com sucesso!' });
   } catch (error) {
-    console.error('Erro ao criar produto:', error);  
-    return res.status(500).json({ message: 'Erro ao criar produto'});
-  } 
-};  
- 
+    console.error('Erro ao criar produto:', error);
+    return res.status(500).json({ message: 'Erro ao criar produto' });
+  }
+};
+
 const GetProductsByValue = async (req, res) => {
 
   try {
     const valueInitial = req.query.initialValue;
     const valueFinal = req.query.finalValue;
-
     const products = await Product.findAll();
-
     const productsFilter = products.filter(obj => obj.price >= valueInitial && obj.price <= valueFinal);
     res.status(200).json(productsFilter);
 
   } catch (error) {
-    res.status(500).json('Error ao filtrar produtos pelos valores informados.')
+    res.status(500).json('Error ao filtrar produtos pelos valores informados.');
   }
-
 };
 
 const UpdatedProduct = async (req, res) => {
-  const { codProduct, name, price, description, image, stock, sold, category } = req.body;
+  const { codProduct, name, price, description, stock, sold, category } = req.body;
 
   try {
     const product = await Product.findByPk(codProduct);
 
     if (!product) res.status(401).json('Produto não encontrado!');
 
-    product.name = !Validated.name(name) ? res.status(400).json('Nome do produto inválido!') : name;
-    product.price = !Validated.price(price) ? res.status(400).json('Preço inválido!') : price;
-    product.description = !Validated.description(description) ? res.status(400).json('Descrição nula ou muito curta!') : description;
-    product.image = !Validated.image(image) ? res.status(400).json("Imagem inválida") : image;
+    product.name = !Validated.name(name) ? res.status(400).json('Nome do produto inválido!') : name,
+      product.price = !Validated.price(price) ? res.status(400).json('Preço inválido!') : parseFloat(price.replace(',', '.')).toFixed(2),
+      product.description = !Validated.description(description) ? res.status(400).json('Descrição nula ou muito curta!') : description;
     product.stock = !Validated.stock(stock) ? res.status(400).json('Estoque não pode ser nulo!') : stock;
     product.sold = !Validated.sold(sold) ? res.status(400).json('Quantidade vendida inválida!') : sold;
     product.category = !Validated.category(category) ? res.status(400).json('Categoria inválida') : category;
 
     await product.save();
-
-    res.status(200).json('Produto atualizado com sucesso!');
+    const images = await Promise.all(
+      fileUrls.map(async (fileUrl) => {
+        return await ImagesProducts.create({ codProduct, path: fileUrl });
+      })
+    );
+    return res.status(200).json('Produto atualizado com sucesso!');
   } catch (error) {
-    res.status(500).json("Não foi possível atualiar produto!" + error);
+    res.status(500).json("Não foi possível atualizar produto!" + error);
   }
 };
 
-export { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, GetProductsByValue, UpdatedProduct };
+const UpdatedImageProduct = async (req, res) => {
+  const { id, codProduct } = req.body;
+  const files = req.files;
+
+  try {
+    const fileUrls = files.map((file) => `/images/products/${file.filename}`);
+    const updatedImages = await Promise.all(
+      fileUrls.map(async (fileUrl) => {
+        const imageProduct = await ImagesProducts.findOne({
+          where: { id, codProduct }
+        });
+        if (!imageProduct) {
+          return res.status(404).json({ message: "Imagem do produto não encontrada!" });
+        }
+        imageProduct.path = fileUrl;
+        await imageProduct.save();
+
+        return imageProduct; 
+      })
+    );
+    return res.status(200).json({ message: "Imagem do produto atualizada com sucesso!" });
+  } catch (error) {
+    return res.status(400).json({ message: "Não foi possível atualizar imagem do produto."});
+  }
+}; 
+
+
+
+export { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, GetProductsByValue, UpdatedProduct, UpdatedImageProduct };
