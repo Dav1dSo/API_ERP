@@ -8,26 +8,22 @@ module.exports = {
         autoIncrement: true,
         type: Sequelize.INTEGER
       },
-      cod: {
-        type: Sequelize.INTEGER,
+      codProduct: {
+        type: Sequelize.STRING,
         primaryKey: true,
         unique: true,
         allowNull: false,
-      },
-      name: {
+        },
+        name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       price: {
         type: Sequelize.FLOAT,
         allowNull: false,
-      },
+      },  
       description: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-      },
-      image: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       stock: {
@@ -40,7 +36,7 @@ module.exports = {
         allowNull: false,
       },
       category: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       createdAt: {
