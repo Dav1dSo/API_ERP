@@ -1,7 +1,8 @@
 import Product from '../models/product';
 import ImagesProducts from '../models/ImagesProducts';
+import Categories from '../models/Categories'
 import Validated from '../functions/RequestValidate/ValidatedProduct';
-import Sequelize from 'sequelize';   
+import Sequelize, { where } from 'sequelize';
 
 const GetProducts = async (req, res) => {
   const limit = req.query.limit ? req.query.limit : 1000;
@@ -12,7 +13,7 @@ const GetProducts = async (req, res) => {
       include: [
         {
           model: ImagesProducts,
-          where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"')},
+          where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
           attributes: ['id', 'path'],
           required: false,
         },
@@ -32,7 +33,7 @@ const FindProduct = async (req, res) => {
   const includeImages = [
     {
       model: ImagesProducts,
-      where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"')},
+      where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
       attributes: ['id', 'path'],
       required: false,
     },
@@ -56,7 +57,7 @@ const GetProductsByCategorie = async (req, res) => {
   const includeImages = [
     {
       model: ImagesProducts,
-      where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"')},
+      where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
       attributes: ['id', 'path'],
       required: false,
     },
@@ -112,11 +113,11 @@ const FilterProductsByValue = async (req, res) => {
   try {
     const valueInitial = req.query.initialValue;
     const valueFinal = req.query.finalValue;
- 
+
     const includeImages = [
       {
         model: ImagesProducts,
-        where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"')},
+        where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
         attributes: ['id', 'path'],
         required: false,
       },
@@ -184,4 +185,21 @@ const UpdatedImageProduct = async (req, res) => {
   }
 };
 
-export { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, FilterProductsByValue, UpdatedProduct, UpdatedImageProduct };
+const CreateGategory = async (req, res) => {
+  const { categorie } = req.body;
+
+  try {
+    const existingCategory = await Categories.findOne({ where: { category: categorie } });
+
+    if (existingCategory) {
+      return res.status(400).json('Categoria já existe.');
+    }
+    const newCategoria = await Categories.create({ category: categorie });
+    return res.status(200).json('Categoria criada com sucesso!');
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json('Erro ao criar categoria!');
+  }
+}; 
+
+export { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, FilterProductsByValue, UpdatedProduct, UpdatedImageProduct, CreateGategory };
