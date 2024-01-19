@@ -1,5 +1,3 @@
-// models/Product.js
-
 import { DataTypes } from 'sequelize';
 import sequelize from '../db';
 
