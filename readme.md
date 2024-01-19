@@ -122,6 +122,15 @@
 | `id`       | `integer`  | **Mandatory**. Image id     |
 |`codProduct`| `string`   | **Mandatory**. Product code |
 
+#### Create category for products
+
+```bash
+  POST /api/produtos/createdCategoryProduct
+```
+
+| Parameter  | Type       | Description                 |
+| :----------| :--------- | :-------------------------- |
+|`categorie`| `string`   | **Mandatory**. Create category for products |
 
 ## ✔️ To run the project:
 

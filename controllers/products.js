@@ -1,14 +1,28 @@
-import Product from '../models/product'
-import ImagesProducts from '../models/ImagesProducts'
+import Product from '../models/product';
+import ImagesProducts from '../models/ImagesProducts';
+import Categories from '../models/Categories'
 import Validated from '../functions/RequestValidate/ValidatedProduct';
+import Sequelize, { where } from 'sequelize';
 
 const GetProducts = async (req, res) => {
-  const limited = req.query.limit ? req.query.limit : 1000;
+  const limit = req.query.limit ? req.query.limit : 1000;
 
   try {
-    const products = await Product.findAll({ limit: limited });
+    const products = await Product.findAll({
+      limit: limit,
+      include: [
+        {
+          model: ImagesProducts,
+          where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
+          attributes: ['id', 'path'],
+          required: false,
+        },
+      ],
+    });
+
     res.status(200).json(products);
   } catch (error) {
+    console.error(error);
     res.status(500).json('Erro ao buscar os produtos');
   }
 };
@@ -16,27 +30,53 @@ const GetProducts = async (req, res) => {
 const FindProduct = async (req, res) => {
   const codeProduct = req.query.codProduct;
   const where = { codProduct: codeProduct };
+  const includeImages = [
+    {
+      model: ImagesProducts,
+      where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
+      attributes: ['id', 'path'],
+      required: false,
+    },
+  ];
   try {
-    const product = await Product.findAll({ where: where });
+    const product = await Product.findAll({
+      where: where,
+      include: includeImages,
+    });
+
     res.status(200).json(product);
   } catch (error) {
+    console.error(error);
     res.status(500).json('Error ao buscar produto!');
   }
 };
 
 const GetProductsByCategorie = async (req, res) => {
   const categorie = req.params.category;
-  const filterCategorie = { category: categorie }
+  const filterCategorie = { category: categorie };
+  const includeImages = [
+    {
+      model: ImagesProducts,
+      where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
+      attributes: ['id', 'path'],
+      required: false,
+    },
+  ];
+
   try {
-    const productsByCategorie = await Product.findAll({ where: filterCategorie });
+    const productsByCategorie = await Product.findAll({
+      where: filterCategorie,
+      include: includeImages,
+    });
+
     res.status(200).json(productsByCategorie);
   } catch (error) {
-    res.status(500).json('Erro ao filtrar produtor por categoria!');
+    console.error(error);
+    res.status(500).json('Erro ao filtrar produtos por categoria!');
   }
 };
 
 const CreateProduct = async (req, res) => {
-
   try {
     const {
       codProduct, name, price, description, stock, sold, category
@@ -69,17 +109,27 @@ const CreateProduct = async (req, res) => {
   }
 };
 
-const GetProductsByValue = async (req, res) => {
-
+const FilterProductsByValue = async (req, res) => {
   try {
     const valueInitial = req.query.initialValue;
     const valueFinal = req.query.finalValue;
-    const products = await Product.findAll();
+
+    const includeImages = [
+      {
+        model: ImagesProducts,
+        where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
+        attributes: ['id', 'path'],
+        required: false,
+      },
+    ];
+    const products = await Product.findAll({
+      include: includeImages,
+    });
     const productsFilter = products.filter(obj => obj.price >= valueInitial && obj.price <= valueFinal);
     res.status(200).json(productsFilter);
-
   } catch (error) {
-    res.status(500).json('Error ao filtrar produtos pelos valores informados.');
+    console.error(error);
+    res.status(500).json('Error ao filtrar produtos pelos valores informados.' + error);
   }
 };
 
@@ -126,16 +176,30 @@ const UpdatedImageProduct = async (req, res) => {
         }
         imageProduct.path = fileUrl;
         await imageProduct.save();
-
-        return imageProduct; 
+        return imageProduct;
       })
     );
     return res.status(200).json({ message: "Imagem do produto atualizada com sucesso!" });
   } catch (error) {
-    return res.status(400).json({ message: "Não foi possível atualizar imagem do produto."});
+    return res.status(400).json({ message: "Não foi possível atualizar imagem do produto." });
+  }
+};
+
+const CreateGategory = async (req, res) => {
+  const { categorie } = req.body;
+
+  try {
+    const existingCategory = await Categories.findOne({ where: { category: categorie } });
+
+    if (existingCategory) {
+      return res.status(400).json('Categoria já existe.');
+    }
+    const newCategoria = await Categories.create({ category: categorie });
+    return res.status(200).json('Categoria criada com sucesso!');
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json('Erro ao criar categoria!');
   }
 }; 
 
-
-
-export { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, GetProductsByValue, UpdatedProduct, UpdatedImageProduct };
+export { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, FilterProductsByValue, UpdatedProduct, UpdatedImageProduct, CreateGategory };
