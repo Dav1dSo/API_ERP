@@ -1,5 +1,5 @@
 import express from 'express'
-import { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, FilterProductsByValue, UpdatedProduct, UpdatedImageProduct, CreateGategory } from '../controllers/products';
+import { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, FilterProductsByValue, UpdatedProduct, UpdatedImageProduct, CreateGategory, CreateShoppingCart } from '../controllers/products';
 import VerifyToken from '../middlewares/AuthenticationUser';
 import { handleUpload } from '../middlewares/UploadImages';
 
@@ -13,5 +13,6 @@ route.get('/filterValue', VerifyToken, FilterProductsByValue);
 route.post('/updatedProduct', VerifyToken, handleUpload, UpdatedProduct);
 route.post('/updatedImageProduct', VerifyToken, handleUpload, UpdatedImageProduct);
 route.post('/createdCategoryProduct', VerifyToken, CreateGategory);
+route.post('/createShoppingCart', VerifyToken, CreateShoppingCart);
 
-export default route;    
+export default route;       
