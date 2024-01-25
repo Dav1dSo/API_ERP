@@ -132,6 +132,21 @@
 | :----------| :--------- | :-------------------------- |
 |`categorie`| `string`   | **Mandatory**. Create category for products |
 
+
+#### Add product in shopping cart
+
+```bash
+  POST /api/produtos/createShoppingCart
+```
+
+| Parameter  | Type       | Description                   |
+| :----------| :--------- | :---------------------------- |
+| `idUser`   | `string`   | **Mandatory**. User id        |
+|`codProduct`| `string`   | **Mandatory**. Product code   |
+|  `quanty`  | `interger` | **Mandatory**. Product quanty |
+| `price`    | `floar`    | **Mandatory**. Product price  |
+
+
 ## ✔️ To run the project:
 
 Clone the project
