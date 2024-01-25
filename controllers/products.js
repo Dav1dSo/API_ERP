@@ -1,5 +1,6 @@
 import Product from '../models/product';
 import ImagesProducts from '../models/ImagesProducts';
+import ShoppingCart from '../models/ShoppingCart';
 import Categories from '../models/Categories'
 import Validated from '../functions/RequestValidate/ValidatedProduct';
 import Sequelize, { where } from 'sequelize';
@@ -200,6 +201,38 @@ const CreateGategory = async (req, res) => {
     console.error(error);
     return res.status(500).json('Erro ao criar categoria!');
   }
-}; 
+};
 
-export { GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, FilterProductsByValue, UpdatedProduct, UpdatedImageProduct, CreateGategory };
+const CreateShoppingCart = async (req, res) => {
+
+  try {
+    const { idUser, codProduct, quanty, price } = req.body;
+
+    const total = quanty * price;
+
+    const dataProductCart = {
+      idUser: idUser,
+      codProduct: codProduct,
+      quanty: quanty,
+      amount: total
+    };
+
+    const ProductInCart = await ShoppingCart.findOne({ where: { codProduct: codProduct } });
+
+    if (ProductInCart) {
+      res.status(400).json({ error: "Produto já adicionado no carrinho!" });
+    } else {
+      await ShoppingCart.create(dataProductCart);
+    }
+
+    return res.status(200).json("Produto adicionado ao carrinho!");
+  } catch (error) {
+    return res.status(500).json("Erro ao adicionar produto ao carrinho!");
+  }
+};
+
+export {
+  GetProducts, FindProduct, GetProductsByCategorie, CreateProduct,
+  FilterProductsByValue, UpdatedProduct, UpdatedImageProduct, CreateGategory, CreateShoppingCart
+};
+ 
