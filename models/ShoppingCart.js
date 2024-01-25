@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db";
 
-const ModelShoppingCart = sequelize.define('ShoppingCart', {
+const ModelShoppingCart = sequelize.define('ShoppingCarts', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -16,7 +16,7 @@ const ModelShoppingCart = sequelize.define('ShoppingCart', {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-    },
+    }, 
     codProduct: {
         type: DataTypes.STRING,
         allowNull: false,
