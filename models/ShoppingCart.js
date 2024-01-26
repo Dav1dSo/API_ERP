@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db";
+import Products from "./Products";
 
 const ModelShoppingCart = sequelize.define('ShoppingCarts', {
     id: {
@@ -44,5 +45,7 @@ const ModelShoppingCart = sequelize.define('ShoppingCarts', {
         type: DataTypes.DATE,
     }
 });
+
+ModelShoppingCart.belongsTo(Products, { foreignKey: 'codProduct' });
 
 export default ModelShoppingCart;  

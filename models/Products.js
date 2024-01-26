@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../db';
 import ImagesProducts from './ImagesProducts';
 
-const ModelProducts = sequelize.define('Products', {
+const Products= sequelize.define('Products', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -47,6 +47,6 @@ const ModelProducts = sequelize.define('Products', {
   }
 }); 
 
-ModelProducts.belongsTo(ImagesProducts, { foreignKey: 'codProduct' });
+Products.hasMany(ImagesProducts, { foreignKey: 'codProduct' });
 
-export default ModelProducts;
+export default Products;
