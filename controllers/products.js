@@ -1,4 +1,4 @@
-import Product from '../models/product';
+import Product from '../models/Products';
 import ImagesProducts from '../models/ImagesProducts';
 import ShoppingCart from '../models/ShoppingCart';
 import Categories from '../models/Categories'
@@ -14,7 +14,7 @@ const GetProducts = async (req, res) => {
       include: [
         {
           model: ImagesProducts,
-          where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
+          where: { codProduct: Sequelize.literal('"Products"."codProduct" = "ImagesProducts"."codProduct"') },
           attributes: ['id', 'path'],
           required: false,
         },
@@ -24,7 +24,7 @@ const GetProducts = async (req, res) => {
     res.status(200).json(products);
   } catch (error) {
     console.error(error);
-    res.status(500).json('Erro ao buscar os produtos');
+    res.status(500).json('Erro ao buscar os produtos' + error);
   }
 };
 
@@ -34,7 +34,7 @@ const FindProduct = async (req, res) => {
   const includeImages = [
     {
       model: ImagesProducts,
-      where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
+      where: { codProduct: Sequelize.literal('"Products"."codProduct" = "ImagesProducts"."codProduct"') },
       attributes: ['id', 'path'],
       required: false,
     },
@@ -58,7 +58,7 @@ const GetProductsByCategorie = async (req, res) => {
   const includeImages = [
     {
       model: ImagesProducts,
-      where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
+      where: { codProduct: Sequelize.literal('"Products"."codProduct" = "ImagesProducts"."codProduct"') },
       attributes: ['id', 'path'],
       required: false,
     },
@@ -118,7 +118,7 @@ const FilterProductsByValue = async (req, res) => {
     const includeImages = [
       {
         model: ImagesProducts,
-        where: { codProduct: Sequelize.literal('"Product"."codProduct" = "ImagesProducts"."codProduct"') },
+        where: { codProduct: Sequelize.literal('"Products"."codProduct" = "ImagesProducts"."codProduct"') },
         attributes: ['id', 'path'],
         required: false,
       },
@@ -231,8 +231,36 @@ const CreateShoppingCart = async (req, res) => {
   }
 };
 
-export {
-  GetProducts, FindProduct, GetProductsByCategorie, CreateProduct,
-  FilterProductsByValue, UpdatedProduct, UpdatedImageProduct, CreateGategory, CreateShoppingCart
+const GetShoppingCartByUser = async (req, res) => {
+  const { idUser } = req.body;
+
+  try {
+    const Cart = await ShoppingCart.findAll({
+      where: { idUser: idUser },
+      include: [
+        {
+          model: Product,
+          attributes: ['codProduct', 'name', 'price', 'description', 'stock', 'sold', 'category'],
+          include: [
+            {
+              model: ImagesProducts,
+              attributes: ['id', 'path'],
+              required: false,
+            },
+          ],
+        },
+      ],
+    });
+
+    return res.status(200).json(Cart);
+  } catch (error) {
+    return res.status(400).json({ error: "Erro ao encontrar carrinho." } + error);
+  }
 };
- 
+
+
+
+export {
+  GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, FilterProductsByValue, 
+  UpdatedProduct, UpdatedImageProduct, CreateGategory, CreateShoppingCart, GetShoppingCartByUser
+};
