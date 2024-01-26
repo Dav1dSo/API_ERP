@@ -147,6 +147,16 @@
 | `price`    | `floar`    | **Mandatory**. Product price  |
 
 
+#### Get products shopping cart
+
+```bash
+  POST /api/produtos//GetShoppingCartByUser
+```
+
+| Parameter  | Type       | Description                   |
+| :----------| :--------- | :---------------------------- |
+| `idUser`   | `string`   | **Mandatory**. User id        |
+
 ## ✔️ To run the project:
 
 Clone the project
