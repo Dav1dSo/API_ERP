@@ -146,7 +146,6 @@
 |  `quanty`  | `interger` | **Mandatory**. Product quanty |
 | `price`    | `floar`    | **Mandatory**. Product price  |
 
-
 #### Get products shopping cart
 
 ```bash
