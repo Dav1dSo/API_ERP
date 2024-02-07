@@ -2,10 +2,12 @@ import express from 'express';
 import routesProducts from './routes/products';
 import routesUsers from './routes/users'
 import dotenv from 'dotenv';
+const cors = require('cors');
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
