@@ -203,6 +203,15 @@ const CreateGategory = async (req, res) => {
   }
 };
 
+const GetCategories = async (req, res) => {
+  try {
+    const categories = await Categories.findAll();
+    return res.status(200).json(categories);
+  } catch (error) {
+    res.status(500).json({ message: "Não foi possível encontrar categorias!" })
+  }
+};
+
 const CreateShoppingCart = async (req, res) => {
 
   try {
@@ -261,6 +270,7 @@ const GetShoppingCartByUser = async (req, res) => {
 
 
 export {
-  GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, FilterProductsByValue, 
-  UpdatedProduct, UpdatedImageProduct, CreateGategory, CreateShoppingCart, GetShoppingCartByUser
+  GetProducts, FindProduct, GetProductsByCategorie, CreateProduct, FilterProductsByValue,
+  UpdatedProduct, UpdatedImageProduct, CreateGategory, CreateShoppingCart, GetShoppingCartByUser,
+  GetCategories,
 };
