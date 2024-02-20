@@ -78,23 +78,32 @@ const GetProductsByCategorie = async (req, res) => {
 };
 
 const CreateProduct = async (req, res) => {
+  
   try {
     const {
       codProduct, name, price, description, stock, sold, category
     } = req.body;
+
+    console.log(codProduct);
+
+    const existingProduct = await Product.findOne({ where: { codProduct: codProduct } });
+    console.log(existingProduct);
+    if (existingProduct) {
+      return res.status(400).json({ message: 'Error: Código de produto já cadastrado!' });
+    }
 
     const files = req.files;
     const fileUrls = files.map((file) => `/images/products/${file.filename}`);
 
     const DataValidated = {
       codProduct: codProduct,
-      name: !Validated.name(name) ? res.status(400).json('Nome do produto inválido!') : name,
-      price: !Validated.price(price) ? res.status(400).json('Preço inválido!') : parseFloat(price.replace(',', '.')).toFixed(2),
-      description: !Validated.description(description) ? res.status(400).json('Descrição nula ou muito curta!') : description,
-      stock: !Validated.stock(stock) ? res.status(400).json('Estoque não pode ser nulo!') : stock,
-      sold: !Validated.sold(sold) ? res.status(400).json('Quantidade vendida inválida!') : sold,
-      category: !Validated.category(category) ? res.status(400).json('Categoria inválida') : category
-    }
+      name: !Validated.name(name) ? res.status(400).json({ message: 'Error: Nome do produto inválido!' }) : name,
+      price: !Validated.price(price) ? res.status(400).json({ message: 'Error: Preço inválido!' }) : parseFloat(price.replace(',', '.')).toFixed(2),
+      description: !Validated.description(description) ? res.status(400).json({ message: 'Error: Descrição nula ou muito curta!' }) : description,
+      stock: !Validated.stock(stock) ? res.status(400).json({ message: 'Error: Estoque não pode ser nulo!' }) : stock,
+      sold: !Validated.sold(sold) ? res.status(400).json({ message: 'Error: Quantidade vendida inválida!' }) : sold,
+      category: !Validated.category(category) ? res.status(400).json({ message: 'Error: Categoria inválida' }) : category
+    };
 
     const product = await Product.create(DataValidated);
 
@@ -106,9 +115,11 @@ const CreateProduct = async (req, res) => {
     return res.status(200).json({ message: 'Produto criado com sucesso!' });
   } catch (error) {
     console.error('Erro ao criar produto:', error);
-    return res.status(500).json({ message: 'Erro ao criar produto' });
+    return res.status(500).json({ message: `Error: Não foi possível criar produto, tente novamente! ${error.message}` });
   }
 };
+
+
 
 const FilterProductsByValue = async (req, res) => {
   try {
