@@ -96,7 +96,18 @@
 | `email`    | `string` | **Mandatory**. Email     |
 | `password` | `string` | **Mandatory**. password  |
 
-#### Update user
+
+#### User login
+
+```bash
+  POST /api/users/login
+```
+
+| Parameter  | Type     | Description              |
+| :--------- | :------- | :----------------------- | 
+| `userName` | `string` | **Mandatory**. User name |
+| `password` | `string` | **Mandatory**. password  |
+
 
 ```bash
   POST /api/users/updatedUser
