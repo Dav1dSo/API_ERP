@@ -22,12 +22,12 @@ const UserAuthentication = async (req, res) => {
         const user = await Users.findOne({ where: { email } }); 
         
         if (!user) {
-            return res.status(401).json('Usuário não encontrado!');
+            return res.status(401).json({message: 'Usuário não encontrado!'});
         }
 
         const passwordVerify =  await bcrypt.compare(password, user.password);  
         if (!passwordVerify) {
-            return res.status(401).json('Senha inválida!');
+            return res.status(401).json({message: 'Senha inválida!'});
         }
 
         const token = generateToken(user);
