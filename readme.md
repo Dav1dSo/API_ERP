@@ -105,7 +105,7 @@
 
 | Parameter  | Type     | Description              |
 | :--------- | :------- | :----------------------- | 
-| `userName` | `string` | **Mandatory**. User name |
+| `email`    | `string` | **Mandatory**. Email     |
 | `password` | `string` | **Mandatory**. password  |
 
 
